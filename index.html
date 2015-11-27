@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css"></style>
+	<script type="text/javascript" src="three.min.js"></script>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+		
+		
+		var renderer = new THREE.WebGLRenderer(); // Creates an new image renderer
+		renderer.setSize(800, 600); // How many pixels are in the canvas, size basically
+		document.body.appendChild(renderer.domElement); // Adding a canvas element to the DOM, 
+		
+		
+		var scene = new THREE.Scene(); // 
+	
+	
+		var sphere_geom = new THREE.SphereGeometry(1, 25, 1); // Create a sphere Geometry; Can change the amount of cuts in the 3d object ([changes size of the object], [Vertical Cuts], [Horizontal Cuts])
+		var sphere_mat = new THREE.MeshLambertMaterial({color: "white", wireframe: true}); // Creates the material to be transferred to the object with specified colour. Can change wirewframe property to true to see skeleton
+		var sphere = new THREE.Mesh(sphere_geom, sphere_mat); // Create a sphere to the scene using above parameters
+		scene.add(sphere); // Add sphere to scene
+
+		
+		// Add a perspective camera: 
+		var camera = new THREE.PerspectiveCamera(75, 400/300, 1, 1000); // The 1 says that anothing closer than 1 unit (to the camera), don't show in the display
+		camera.position.z = 2; // Camera distance from object
+
+		
+		var directionalLight = new THREE.DirectionalLight("white", 2);
+		directionalLight.position.set(0, 1, 2);
+		scene.add(directionalLight);
+		
+		
+		// Step is the same as with 2d
+		var step = function () {
+		  sphere.rotateX(Math.PI/1080); // speed at which the x rotates
+		  sphere.rotateY(Math.PI/1080); // Speed at which the y rotates
+		  renderer.render(scene, camera);
+		  requestAnimationFrame(step); // Render scene again
+		};
+		step(); // Launch function
+
+
+		var material = new THREE.MeshLambertMaterial({color: "blue"});		
+		
+	</script>
+ 
+ </body>
+</html>
